@@ -38,8 +38,6 @@ const getPrompt = async (content) => {
     entry: content,
   })
 
-  console.log(input)
-
   return input
 }
 

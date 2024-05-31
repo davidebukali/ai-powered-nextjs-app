@@ -18,7 +18,7 @@ const Editor = ({ entry }) => {
 
   return (
     <div className="w-full h-full">
-      {isLoading && <div>...Saving</div>}
+      {isLoading && <div>...loading</div>}
       <textarea
         className="w-full h-full p-8 text-xl outline-none"
         value={value}
