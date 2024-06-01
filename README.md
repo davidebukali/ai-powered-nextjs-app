@@ -35,3 +35,7 @@ npx prisma db push
 ```
 
 Please check [Prisma documentation](https://www.prisma.io/docs) for more features
+
+## Todo
+
+Add vector search to journal entries so that we can perform semantic search on the entire dataset.
