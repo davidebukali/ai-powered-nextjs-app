@@ -4,6 +4,7 @@ import Link from 'next/link'
 const Links = [
   { href: '/', label: 'Home' },
   { href: '/journal', label: 'Journal' },
+  { href: '/history', label: 'History' },
 ]
 
 const DashboardLayout = ({ children }) => {
@@ -27,7 +28,7 @@ const DashboardLayout = ({ children }) => {
             <UserButton />
           </div>
         </header>
-        <div className="h-[calc(100vh - 60px)]">{children}</div>
+        <div className="h-full">{children}</div>
       </div>
     </div>
   )
