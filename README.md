@@ -36,6 +36,10 @@ npx prisma db push
 
 Please check [Prisma documentation](https://www.prisma.io/docs) for more features
 
+## Google AI
+
+We use Gemini AI to analyze journal entries. Create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey?_gl=1*dl1nx8*_ga*MTYyMjk3NzAyNi4xNzE3NjAxMTg4*_ga_P1DBVKWT6V*MTcxNzYwMTE4OC4xLjEuMTcxNzYwMTQxMS41NS4wLjE4NDc5NTU5NTE.)
+
 ## Todo
 
-Add vector search to journal entries so that we can perform semantic search on the entire dataset.
+Add semantic search on all journal entries
