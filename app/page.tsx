@@ -9,7 +9,8 @@ export default async function Home() {
       <div className="w-full max-w-[600px] mx-auto p-10">
         <h1 className="text-6xl mb-4">The best journal app</h1>
         <p className="text-2xl text-white/60 mb-4">
-          Mood App uses AI to track your mood
+          Mood App uses AI to track how you are feeling by analysing your daily
+          journal entries.
         </p>
         <div>
           <Link href={href}>
