@@ -16,7 +16,6 @@ const CustomTooltip = ({ payload, label, active }) => {
     month: 'short',
     day: 'numeric',
     hour: 'numeric',
-    minute: 'numeric',
   })
 
   if (active) {
@@ -38,20 +37,22 @@ const CustomTooltip = ({ payload, label, active }) => {
 
 const HistoryChart = ({ data }) => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart width={300} height={100} data={data}>
-        <XAxis dataKey="createdAt" />
-        <YAxis />
-        <Tooltip content={<CustomTooltip />} />
-        <Line
-          dataKey="sentimentScore"
-          type="monotone"
-          stroke="#8884d8"
-          strokeWidth={2}
-          activeDot={{ r: 8 }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="w-full h-full m-5">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart width={300} height={100} data={data}>
+          <XAxis dataKey="createdAt" />
+          <YAxis />
+          <Tooltip content={<CustomTooltip />} />
+          <Line
+            dataKey="sentimentScore"
+            type="monotone"
+            stroke="#8884d8"
+            strokeWidth={2}
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
 
