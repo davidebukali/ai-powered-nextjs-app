@@ -3,8 +3,9 @@
 import { updatedEntry } from '@/utils/api'
 import { useState } from 'react'
 import { useAutosave } from 'react-autosave'
+import Editor from 'react-simple-wysiwyg'
 
-const Editor = ({ entry }) => {
+const JournalEditor = ({ entry }) => {
   const [value, setValue] = useState(entry.content)
   const [analysis, setAnalysis] = useState(entry.analysis)
   const [isLoading, setIsLoading] = useState(false)
@@ -15,6 +16,7 @@ const Editor = ({ entry }) => {
     { name: 'Mood', value: mood },
     { name: 'Negative', value: negative ? 'True' : 'False' },
   ]
+
   useAutosave({
     data: value,
     onSave: async (_value) => {
@@ -27,11 +29,11 @@ const Editor = ({ entry }) => {
 
   return (
     <div className="h-full w-full grid grid-cols-3">
-      <div className="col-span-2">
+      <div className="col-span-2 px-5">
         <div className="w-full h-full">
-          {isLoading && <div>...loading</div>}
-          <textarea
-            className="w-full h-full p-8 text-xl outline-none"
+          {isLoading && <div>Loading...</div>}
+          <Editor
+            containerProps={{ style: { width: '100%', height: '50%' } }}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
@@ -59,4 +61,4 @@ const Editor = ({ entry }) => {
   )
 }
 
-export default Editor
+export default JournalEditor

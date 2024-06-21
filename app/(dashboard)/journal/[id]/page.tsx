@@ -1,4 +1,4 @@
-import Editor from '@/Components/Editor'
+import JournalEditor from '@/Components/JournalEditor'
 import { getUserByClerkID } from '@/utils/auth'
 import { prisma } from '@/utils/db'
 
@@ -21,7 +21,7 @@ const getEntry = async (id) => {
 const EntryPage = async ({ params }) => {
   const entry = await getEntry(params.id)
 
-  return <Editor entry={entry} />
+  return <JournalEditor entry={entry} />
 }
 
 export default EntryPage
