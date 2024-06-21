@@ -28,18 +28,18 @@ const JournalEditor = ({ entry }) => {
   })
 
   return (
-    <div className="h-full w-full grid grid-cols-3">
-      <div className="col-span-2 px-5">
+    <div className="h-full w-full grid md:grid-cols-3 p-5">
+      <div className="md:col-span-2 pb-5 pr-2">
         <div className="w-full h-full">
           {isLoading && <div>Loading...</div>}
           <Editor
-            containerProps={{ style: { width: '100%', height: '50%' } }}
+            containerProps={{ style: { width: '100%', height: '100%' } }}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
         </div>
       </div>
-      <div className="border-l border-black/10">
+      <div className="w-full h-full border border-black/10">
         <div className="px-6 py-10" style={{ backgroundColor: color }}>
           <h2 className="text-2xl">Analysis</h2>
         </div>
