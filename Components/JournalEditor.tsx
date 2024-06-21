@@ -4,6 +4,7 @@ import { updatedEntry } from '@/utils/api'
 import { useState } from 'react'
 import { useAutosave } from 'react-autosave'
 import Editor from 'react-simple-wysiwyg'
+import { FaSpinner } from 'react-icons/fa'
 
 const JournalEditor = ({ entry }) => {
   const [value, setValue] = useState(entry.content)
@@ -26,7 +27,7 @@ const JournalEditor = ({ entry }) => {
   useAutosave({
     data: value,
     onSave: async (_value) => {
-      if (value && value.length > 0) {
+      if (_value && _value.length > 0) {
         setIsLoading(true)
         const data = await updatedEntry(entry.id, _value)
         setAnalysis(data.analysis)
@@ -39,7 +40,12 @@ const JournalEditor = ({ entry }) => {
     <div className="h-full w-full grid md:grid-cols-3 p-5">
       <div className="md:col-span-2 pb-5 pr-2">
         <div className="w-full h-full">
-          {isLoading && <div>Loading...</div>}
+          {isLoading && (
+            <div className="flex">
+              <FaSpinner className="animate-spin" />
+              <span className="px-2">Saving</span>
+            </div>
+          )}
           <Editor
             containerProps={{ style: { width: '100%', height: '100%' } }}
             value={value}
