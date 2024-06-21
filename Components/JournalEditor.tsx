@@ -9,7 +9,13 @@ const JournalEditor = ({ entry }) => {
   const [value, setValue] = useState(entry.content)
   const [analysis, setAnalysis] = useState(entry.analysis)
   const [isLoading, setIsLoading] = useState(false)
-  const { mood, summary, color, subject, negative } = analysis
+  const { mood, summary, color, subject, negative } = analysis || {
+    mood: '',
+    summary: '',
+    color: '',
+    subject: '',
+    negative: false,
+  }
   const analysisData = [
     { name: 'Summary', value: summary },
     { name: 'Subject', value: subject },
@@ -20,10 +26,12 @@ const JournalEditor = ({ entry }) => {
   useAutosave({
     data: value,
     onSave: async (_value) => {
-      setIsLoading(true)
-      const data = await updatedEntry(entry.id, _value)
-      setAnalysis(data.analysis)
-      setIsLoading(false)
+      if (value && value.length > 0) {
+        setIsLoading(true)
+        const data = await updatedEntry(entry.id, _value)
+        setAnalysis(data.analysis)
+        setIsLoading(false)
+      }
     },
   })
 
