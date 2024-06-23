@@ -1,6 +1,5 @@
 'use client'
 
-import { createNewEntry } from '@/utils/api'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
@@ -10,8 +9,7 @@ const NewEntryCard = () => {
   const [isLoading, setIsLoading] = useState(false)
   const handleOnClick = async () => {
     setIsLoading(true)
-    const data = await createNewEntry()
-    router.push(`/journal/${data.id}`)
+    router.push('/journal/add')
   }
 
   return (

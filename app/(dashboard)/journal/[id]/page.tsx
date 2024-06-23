@@ -3,8 +3,9 @@ import { getUserByClerkID } from '@/utils/auth'
 import { prisma } from '@/utils/db'
 
 const getEntry = async (id) => {
+  let newEntry
   const user = await getUserByClerkID()
-  const entry = await prisma.journalEntry.findUnique({
+  let savedEntry = await prisma.journalEntry.findUnique({
     where: {
       userId_id: {
         userId: user.id,
@@ -15,7 +16,17 @@ const getEntry = async (id) => {
       analysis: true,
     },
   })
-  return entry
+
+  if (!savedEntry) {
+    newEntry = await prisma.journalEntry.create({
+      data: {
+        userId: user.id,
+        content: '',
+      },
+    })
+    return newEntry
+  }
+  return savedEntry
 }
 
 const EntryPage = async ({ params }) => {
