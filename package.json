@@ -17,6 +17,7 @@
     "@neondatabase/serverless": "^0.9.3",
     "@prisma/client": "^5.14.0",
     "@react-three/fiber": "^8.16.8",
+    "@sentry/nextjs": "^8.15.0",
     "@tensorflow/tfjs-node": "^4.20.0",
     "@types/node": "20.12.12",
     "@types/react": "18.3.3",
