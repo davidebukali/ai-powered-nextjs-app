@@ -2,6 +2,7 @@ import { analyze } from '@/utils/ai'
 import { NextRequest, NextResponse } from 'next/server'
 import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
+import { logMetric } from '@/utils/errors'
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -27,6 +28,9 @@ export const POST = async (request: NextRequest, { params }) => {
     }
 
     const analysis = await analyze(content)
+
+    //Log these requests from guest users
+    logMetric(request)
 
     return NextResponse.json({
       data: {
