@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
 import classNames from 'classnames'
+import Image from 'next/image'
 
 const Links = [
   { href: '/', label: 'Home' },
@@ -34,8 +35,14 @@ const DashboardLayout = ({ children }) => {
             <span className="text-2xl pt-4 py-2 ml-4 cursor-pointer visible sm:invisible">
               <FaBars onClick={() => toggleSlideOver()} />
             </span>
-            <span className="basis-1/4 text-3xl px-2 py-2 cursor-pointer">
-              Mood
+            <span className="flex flex-row basis-1/4 py-4 cursor-pointer">
+              <Image
+                src="/images/logov3.jpg"
+                alt="logo"
+                width={50}
+                height={40}
+              />
+              <span className="text-3xl px-2">Mood</span>
             </span>
             <ul className="flex basis-1/2 invisible sm:visible">
               {renderLinks()}

@@ -9,6 +9,7 @@ import { FaSpinner } from 'react-icons/fa'
 import { Object3D } from 'three'
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import Image from 'next/image'
 
 const dummy = new Object3D()
 extend({ OrbitControls })
@@ -90,7 +91,10 @@ const Home = memo(function HomePage() {
     <div className="w-screen h-screen grid gap-2 md:grid-cols-2 sm:grid-cols-1">
       <div className="flex justify-center items-center">
         <div className="p-10">
-          <h1 className="text-6xl mb-4 text-black">Mood</h1>
+          <h1 className="flex flex-row mb-4 text-black">
+            <Image src="/images/logov3.jpg" alt="logo" width={60} height={20} />
+            <span className="text-6xl px-4">Mood</span>
+          </h1>
           <p className="text-2xl text-black/60 mb-4">
             A journal writing app that uses AI to track how you are feeling by
             analysing your daily entries.
