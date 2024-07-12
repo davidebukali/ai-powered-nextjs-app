@@ -30,7 +30,7 @@ const DashboardLayout = ({ children }) => {
   return (
     <div className="h-screen w-screen">
       <div className="h-full w-full">
-        <header className="h-[60px]">
+        <header className="h-[70px]">
           <div className="flex">
             <span className="text-2xl pt-4 py-2 ml-4 cursor-pointer visible sm:invisible">
               <FaBars onClick={() => toggleSlideOver()} />
