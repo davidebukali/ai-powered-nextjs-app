@@ -3,6 +3,9 @@ import { StructuredOutputParser } from 'langchain/output_parsers'
 import z from 'zod'
 import { PromptTemplate } from '@langchain/core/prompts'
 
+const genAI = new GoogleGenerativeAI(process.env.API_KEY)
+export const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+
 const parser = StructuredOutputParser.fromZodSchema(
   z.object({
     sentimentScore: z
@@ -28,9 +31,7 @@ const parser = StructuredOutputParser.fromZodSchema(
   })
 )
 
-const genAI = new GoogleGenerativeAI(process.env.API_KEY)
-
-const getPrompt = async (content) => {
+const getPrompt = async (content: string) => {
   const formatted_instructions = parser.getFormatInstructions()
   const prompt = new PromptTemplate({
     template:
@@ -48,7 +49,6 @@ const getPrompt = async (content) => {
 
 export const analyze = async (content: string) => {
   const input = await getPrompt(content)
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
   const result = await model.generateContent(input)
   const response = await result.response
   const text = response.text()
