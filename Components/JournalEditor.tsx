@@ -31,6 +31,7 @@ const JournalEditor = ({ entry }) => {
         setIsLoading(true)
         const data = await updatedEntry(entry.id, _value)
         setAnalysis(data.analysis)
+
         setIsLoading(false)
       }
     },
