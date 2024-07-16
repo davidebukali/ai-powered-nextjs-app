@@ -6,58 +6,71 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
+  extensions = [vector]
 }
 
 model User {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  clerkId String @unique
-  email String @unique
-  entries JournalEntry[]
+  clerkId  String         @unique
+  email    String         @unique
+  entries  JournalEntry[]
   analyses Analysis[]
 }
 
 model JournalEntry {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   userId String
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   content String @db.Text
 
-  analysis Analysis?
+  analysis             Analysis?
+  JournalEntrySections JournalEntrySections[]
 
   @@unique([userId, id])
 }
 
 model Analysis {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   entryId String
-  entry JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  entry   JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
 
-  userId String
-  user User @relation(fields: [userId], references: id, onDelete: Cascade)
-  mood String
-  summary String @db.Text
-  color String
-  negative Boolean
-  subject String
-  sentimentScore Float @default(0)
+  userId         String
+  user           User    @relation(fields: [userId], references: id, onDelete: Cascade)
+  mood           String
+  summary        String  @db.Text
+  color          String
+  negative       Boolean
+  subject        String
+  sentimentScore Float   @default(0)
 
   @@unique([entryId])
   @@index([userId])
+}
 
+model JournalEntrySections {
+  id String @id @default(uuid())
+
+  entryId String
+  entry   JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  embedding  Unsupported("VECTOR(384)")?
+
+  @@index([entryId])
 }
