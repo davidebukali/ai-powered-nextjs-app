@@ -24,6 +24,9 @@ export const POST = async (request: NextRequest, { params }) => {
       where: {
         id: { in: result.map((entry) => entry.entryId) },
       },
+      include: {
+        analysis: true,
+      },
     })
 
     return NextResponse.json({
