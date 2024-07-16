@@ -32,17 +32,20 @@ const DashboardLayout = ({ children }) => {
       <div className="h-full w-full">
         <header className="h-[70px]">
           <div className="flex">
-            <span className="text-2xl pt-4 py-2 ml-4 cursor-pointer visible sm:invisible">
-              <FaBars onClick={() => toggleSlideOver()} />
-            </span>
             <span className="flex flex-row basis-1/4 py-4 cursor-pointer">
+              <span>
+                <FaBars
+                  className="text-2xl mx-4 cursor-pointer visible sm:invisible"
+                  onClick={() => toggleSlideOver()}
+                />
+              </span>
               <Image
                 src="/images/logov3.jpg"
                 alt="logo"
                 width={50}
                 height={40}
               />
-              <span className="text-3xl px-2">Mood</span>
+              <span className="text-3xl px-2 invisible md:visible">Mood</span>
             </span>
             <ul className="flex basis-1/2 invisible sm:visible">
               {renderLinks()}
