@@ -13,7 +13,7 @@ const Links = [
   { href: '/history', label: 'History' },
 ]
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [sliderState, setSliderState] = useState(true)
   const renderLinks = () => {
     return Links.map((link) => (
