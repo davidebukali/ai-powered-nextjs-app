@@ -16,3 +16,22 @@ export const POST = async () => {
     data: entry,
   })
 }
+
+export const GET = async () => {
+  const user = await getUserByClerkID()
+  const entries = await prisma.journalEntry.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      analysis: true,
+    },
+  })
+
+  return NextResponse.json({
+    data: entries,
+  })
+}
