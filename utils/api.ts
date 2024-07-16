@@ -40,3 +40,17 @@ export const requestAnalysis = async (content: string) => {
     return data.data
   }
 }
+
+export const vectorSearch = async (content: string) => {
+  const res = await fetch(
+    new Request(createURL('/api/search'), {
+      method: 'POST',
+      body: JSON.stringify({ content }),
+    })
+  )
+
+  if (res.ok) {
+    const data = await res.json()
+    return data.data
+  }
+}
