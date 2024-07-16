@@ -2,31 +2,34 @@
 
 import { useState } from 'react'
 
-const Question = () => {
+const Question = ({ search, loading }) => {
   const [value, setValue] = useState('')
 
   const onChange = (e) => {
     setValue(e.target.value)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
+    search(value)
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={onChange}
-          value={value}
-          placeholder="Ask a question"
-          className="border border-black/20 px-10 py-6 rounded-lg text-lg"
-        />
-        <button type="submit" className="bg-blue-400 px-4 py-2 rounded-lg">
-          Ask
-        </button>
-      </form>
+    <div className="flex flex-row justify-center m-5">
+      <input
+        disabled={loading}
+        type="text"
+        onChange={onChange}
+        value={value}
+        placeholder="Search..."
+        className="border border-black/20 px-5 py-3 rounded-lg text-lg mx-4"
+      />
+      <button
+        className="bg-blue-800 px-5 py-3 rounded-lg text-white"
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? 'Loading...' : 'GO'}
+      </button>
     </div>
   )
 }
