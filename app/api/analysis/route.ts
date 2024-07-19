@@ -40,5 +40,10 @@ export const POST = async (request: NextRequest, { params }) => {
     })
   } catch (err: any) {
     console.log(err.message)
+    return NextResponse.json({
+      data: {
+        error: err.message,
+      },
+    })
   }
 }
