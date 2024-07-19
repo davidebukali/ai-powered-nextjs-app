@@ -40,6 +40,6 @@ Please check [Prisma documentation](https://www.prisma.io/docs) for more feature
 
 We use Gemini AI to analyze journal entries. Create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey?_gl=1*dl1nx8*_ga*MTYyMjk3NzAyNi4xNzE3NjAxMTg4*_ga_P1DBVKWT6V*MTcxNzYwMTE4OC4xLjEuMTcxNzYwMTQxMS41NS4wLjE4NDc5NTU5NTE.)
 
-## Todo
+## Semantic Search
 
-Add semantic search on all journal entries
+Added using pgvector extension from postgresql and open source [embeddings](https://openai.com/index/introducing-text-and-code-embeddings/) from [Hugging Face](https://huggingface.co/docs/transformers.js/pipelines).
