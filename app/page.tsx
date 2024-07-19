@@ -1,67 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { memo, useRef, useState } from 'react'
+import { useDeferredValue, useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import classNames from 'classnames'
 import { requestAnalysis } from '@/utils/api'
 import { FaSpinner } from 'react-icons/fa'
-import { Object3D } from 'three'
-import { Canvas, useFrame, extend, useThree } from '@react-three/fiber'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Image from 'next/image'
-
-const dummy = new Object3D()
-extend({ OrbitControls })
-
-const Cubes = ({ color }) => {
-  const meshRef = useRef(null)
-
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime()
-    meshRef.current.rotation.x = Math.sin(time / 4)
-    meshRef.current.rotation.y = Math.sin(time / 4)
-    let i = 0
-    const amount = 4
-    const offset = (amount - 1) / 2
-
-    for (let x = 0; x < amount; x++) {
-      for (let y = 0; y < amount; y++) {
-        for (let z = 0; z < amount; z++) {
-          dummy.position.set(offset - x, offset - y, offset - z)
-          dummy.rotation.y =
-            Math.sin(x / 2 + time) +
-            Math.sin(y / 3 + time) +
-            Math.sin(z / 4 + time)
-          dummy.rotation.z = dummy.rotation.y * 2
-
-          dummy.updateMatrix()
-
-          meshRef.current.setMatrixAt(i++, dummy.matrix)
-        }
-        meshRef.current.instanceMatrix.needsUpdate = true
-      }
-    }
-  })
-
-  return (
-    <instancedMesh ref={meshRef} args={[null, null, 1000]}>
-      <torusGeometry args={[6, 0.1, 32, 32]}></torusGeometry>
-      <meshPhongMaterial color={color} />
-    </instancedMesh>
-  )
-}
-
-const CameraControls = () => {
-  const {
-    camera,
-    gl: { domElement },
-  } = useThree()
-  // Ref to the controls, so that we can update them on every frame using useFrame
-  const controls = useRef(null)
-  useFrame((state) => controls.current.update())
-  return <orbitControls ref={controls} args={[camera, domElement]} />
-}
+import TorusKnot from '@/Components/TorusKnot'
 
 const DEFAULT_ANALYSIS = {
   mood: '',
@@ -71,13 +17,13 @@ const DEFAULT_ANALYSIS = {
   negative: false,
 }
 
-const Home = memo(function HomePage() {
+const Home = () => {
+  const [analysis, setAnalysis] = useState(DEFAULT_ANALYSIS)
+  const { mood, summary, color } = analysis || DEFAULT_ANALYSIS
+  const deferredColor = useDeferredValue<string>(color)
   const { isSignedIn } = useAuth()
   const [textAreaContent, setTextareaContent] = useState('')
-  const [showForm, setShowForm] = useState(false)
-  const [analysis, setAnalysis] = useState(DEFAULT_ANALYSIS)
   const [requestsLeft, setRequestsLeft] = useState()
-  const { mood, summary, color } = analysis || DEFAULT_ANALYSIS
   const [isLoading, setIsLoading] = useState(false)
 
   let href = '/'
@@ -100,11 +46,7 @@ const Home = memo(function HomePage() {
             analysing your daily entries.
           </p>
           <div>
-            <div
-              className={classNames({
-                hidden: showForm,
-              })}
-            >
+            <div>
               {isLoading && (
                 <div className="flex">
                   <FaSpinner className="animate-spin" />
@@ -173,15 +115,10 @@ const Home = memo(function HomePage() {
         </div>
       </div>
       <div>
-        <Canvas camera={{ position: [0, 20, 5] }}>
-          <ambientLight intensity={1} />
-          <directionalLight />
-          <Cubes color={color} />
-          <CameraControls />
-        </Canvas>
+        <TorusKnot color={deferredColor} />
       </div>
     </div>
   )
-})
+}
 
 export default Home
