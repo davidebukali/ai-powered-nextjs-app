@@ -18,7 +18,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const renderLinks = () => {
     return Links.map((link) => (
       <li key={link.label} className="px-2 py-4 text-lg">
-        <Link href={link.href}>{link.label}</Link>
+        <Link
+          href={link.href}
+          className="border-solid  
+        hover:border-b-4 target:border-b-5 border-blue-800"
+          id={link.label.toLowerCase()}
+        >
+          {link.label}
+        </Link>
       </li>
     ))
   }
