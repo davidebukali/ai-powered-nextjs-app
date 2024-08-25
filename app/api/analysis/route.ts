@@ -15,13 +15,13 @@ export const POST = async (request: NextRequest, { params }) => {
 
     const ip = request.headers.get('x-forwarded-for') ?? ''
     const { success } = await ratelimit.limit(ip)
-    const left = await ratelimit.getRemaining(ip)
+    const { remaining } = await ratelimit.getRemaining(ip)
 
     if (!success) {
       return NextResponse.json({
         data: {
           ai: null,
-          left,
+          left: remaining,
           error: 'You can only send 4 requests per hour.',
         },
       })
@@ -35,7 +35,7 @@ export const POST = async (request: NextRequest, { params }) => {
     return NextResponse.json({
       data: {
         ai: analysis,
-        left,
+        left: remaining,
       },
     })
   } catch (err: any) {
