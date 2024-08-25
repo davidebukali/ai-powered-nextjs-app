@@ -1,31 +1,20 @@
 import { analyze } from '@/utils/ai'
 import { NextRequest, NextResponse } from 'next/server'
-import { Ratelimit } from '@upstash/ratelimit'
-import { Redis } from '@upstash/redis'
 import { logMetric } from '@/utils/errors'
+import { RateLimiterMemory } from 'rate-limiter-flexible'
 
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(4, '60 m'),
+const rateLimiter = new RateLimiterMemory({
+  points: 5, // Number of points
+  duration: 3600, // Per second(s)
 })
 
 export const POST = async (request: NextRequest, { params }) => {
   try {
     const { content } = await request.json()
+    const ip = request.headers.get('x-forwarded-for') || ''
+    await rateLimiter.consume(ip)
 
-    const ip = request.headers.get('x-forwarded-for') ?? ''
-    const { success } = await ratelimit.limit(ip)
-    const { remaining } = await ratelimit.getRemaining(ip)
-
-    if (!success) {
-      return NextResponse.json({
-        data: {
-          ai: null,
-          left: remaining,
-          error: 'You can only send 4 requests per hour.',
-        },
-      })
-    }
+    const rateLimitInfo = await rateLimiter.get(ip)
 
     const analysis = await analyze(content)
 
@@ -35,14 +24,16 @@ export const POST = async (request: NextRequest, { params }) => {
     return NextResponse.json({
       data: {
         ai: analysis,
-        left: remaining,
+        left: rateLimitInfo?.remainingPoints,
       },
     })
   } catch (err: any) {
     console.log(err.message)
     return NextResponse.json({
       data: {
-        error: err.message,
+        ai: null,
+        left: 0,
+        error: 'You can only send 5 requests per hour.',
       },
     })
   }
