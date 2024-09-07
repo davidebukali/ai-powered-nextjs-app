@@ -30,12 +30,16 @@ const Home = () => {
   if (isSignedIn) {
     href = '/journal'
   } else {
-    href = '/new-user'
+    href = '/sign-in'
   }
 
   return (
     <div className="w-screen h-screen grid gap-2 md:grid-cols-2 sm:grid-cols-1">
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center flex-col">
+        <div className="absolute top-5">
+          <Link href="/sign-in">Signin</Link> |{' '}
+          <Link href="/sign-up">Signup</Link>
+        </div>
         <div className="p-10">
           <h1 className="flex flex-row mb-4 text-black">
             <Image src="/images/logov3.jpg" alt="logo" width={60} height={20} />
