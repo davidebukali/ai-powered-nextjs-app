@@ -1,7 +1,11 @@
 import { SignUp } from '@clerk/nextjs'
 
 const SignUpPage = () => {
-  return <SignUp />
+  return (
+    <div className="flex justify-center py-24">
+      <SignUp />
+    </div>
+  )
 }
 
 export default SignUpPage
