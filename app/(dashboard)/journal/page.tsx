@@ -6,6 +6,7 @@ import Question from '@/Components/Questions'
 import { getEntries, ask } from '@/utils/api'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { ReactTyped } from 'react-typed'
 
 const JournalPage = () => {
   const [entries, setEntries] = useState([])
@@ -41,7 +42,9 @@ const JournalPage = () => {
     <div className="p-10 bg-zinc-400/10 h-full">
       <div className="flex flex-col">
         <Question askQuestion={askQuestion} loading={loadingQuestion} />
-        <div className="mb-10 flex justify-center items-center">{answer}</div>
+        <div className="mb-10 flex justify-center items-center">
+          <ReactTyped strings={[answer]} typeSpeed={40} showCursor={false} />
+        </div>
       </div>
       <div className="grid gap-4 pl-10 mb-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
         <NewEntryCard />
