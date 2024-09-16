@@ -63,3 +63,17 @@ export const vectorSearch = async (content: string) => {
     return data.data
   }
 }
+
+export const ask = async (query: string) => {
+  const res = await fetch(
+    new Request(createURL('/api/rag'), {
+      method: 'POST',
+      body: JSON.stringify({ query }),
+    })
+  )
+
+  if (res.ok) {
+    const data = await res.json()
+    return data.data
+  }
+}
