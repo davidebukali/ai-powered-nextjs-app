@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Mood App',
-  description: 'Lets talk bruh',
+  description: 'Journal Writing Application',
   name: 'viewport',
   content: 'width=device-width, initial-scale=1.0',
 }
