@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import Image from 'next/image'
 
 const Links = [
-  { href: '/', label: 'Home' },
+  // { href: '/', label: 'Home' },
   { href: '/journal', label: 'Journal' },
   { href: '/history', label: 'History' },
 ]
