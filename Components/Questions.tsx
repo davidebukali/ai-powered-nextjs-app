@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-const Question = ({ search, loading }) => {
+const Question = ({ askQuestion, loading }) => {
   const [value, setValue] = useState('')
 
   const onChange = (e) => {
@@ -10,7 +10,7 @@ const Question = ({ search, loading }) => {
   }
 
   const handleSubmit = () => {
-    search(value)
+    askQuestion(value)
   }
 
   return (
@@ -20,8 +20,8 @@ const Question = ({ search, loading }) => {
         type="text"
         onChange={onChange}
         value={value}
-        placeholder="Search..."
-        className="border border-black/20 px-5 py-3 rounded-lg text-lg mx-4"
+        placeholder="Ask a question about your journal entries ..."
+        className="w-[500px] border border-black/20 px-5 py-3 rounded-lg text-lg mx-4 "
       />
       <button
         className="bg-blue-800 px-5 py-3 rounded-lg text-white"
