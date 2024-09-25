@@ -4,7 +4,6 @@ import EntryCard from '@/Components/EntryCard'
 import NewEntryCard from '@/Components/NewEntryCard'
 import Question from '@/Components/Questions'
 import { getEntries, ask } from '@/utils/api'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ReactTyped } from 'react-typed'
 
@@ -31,11 +30,7 @@ const JournalPage = () => {
   }
 
   const renderEntries = (data) => {
-    return data.map((entry) => (
-      <Link href={`/journal/${entry.id}`} key={entry.id}>
-        <EntryCard entry={entry} />
-      </Link>
-    ))
+    return data.map((entry) => <EntryCard entry={entry} />)
   }
 
   return (
