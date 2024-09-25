@@ -19,7 +19,7 @@ const EntryCard = ({ entry, removeEntry }) => {
     <div className="h-200 divide-y divide-gray-200 rounded-lg bg-white shadow">
       <div className="h-15 px-4 py-5 font-semibold sm:px-6">
         {subject}
-        <span className="float-right">
+        <span className="float-right cursor-pointer">
           <FaTimes data-id={entry.id} onClick={delEntry} />
         </span>
       </div>
