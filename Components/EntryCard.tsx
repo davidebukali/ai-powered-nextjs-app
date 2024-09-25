@@ -1,7 +1,7 @@
 import { FaTimes } from 'react-icons/fa'
 import Link from 'next/link'
 
-const EntryCard = ({ entry }) => {
+const EntryCard = ({ entry, removeEntry }) => {
   const date = new Date(entry.createdAt)
   const { subject, mood, color, summary } = entry.analysis || {
     subject: 'N/A',
@@ -10,12 +10,17 @@ const EntryCard = ({ entry }) => {
     summary: '',
   }
 
+  const delEntry = (e) => {
+    const dataId = e.currentTarget.getAttribute('data-id')
+    removeEntry(dataId)
+  }
+
   return (
     <div className="h-200 divide-y divide-gray-200 rounded-lg bg-white shadow">
       <div className="h-15 px-4 py-5 font-semibold sm:px-6">
         {subject}
         <span className="float-right">
-          <FaTimes />
+          <FaTimes data-id={entry.id} onClick={delEntry} />
         </span>
       </div>
       <div className="h-70 px-4 py-5 sm:p-6">

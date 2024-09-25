@@ -3,7 +3,7 @@
 import EntryCard from '@/Components/EntryCard'
 import NewEntryCard from '@/Components/NewEntryCard'
 import Question from '@/Components/Questions'
-import { getEntries, ask } from '@/utils/api'
+import { getEntries, ask, deleteEntry } from '@/utils/api'
 import { useEffect, useState } from 'react'
 import { ReactTyped } from 'react-typed'
 
@@ -29,8 +29,18 @@ const JournalPage = () => {
     })
   }
 
+  const removeEntry = (id) => {
+    deleteEntry(id).then((data) => {
+      getEntries().then((entryData) => {
+        setEntries(entryData)
+      })
+    })
+  }
+
   const renderEntries = (data) => {
-    return data.map((entry) => <EntryCard entry={entry} />)
+    return data.map((entry) => (
+      <EntryCard entry={entry} removeEntry={removeEntry} />
+    ))
   }
 
   return (

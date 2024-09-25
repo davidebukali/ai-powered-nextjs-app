@@ -99,3 +99,13 @@ export const PATCH = async (request, { params }) => {
     },
   })
 }
+
+export const DELETE = async (request, { params }) => {
+  const entry = await prisma.journalEntry.delete({
+    where: { id: params.id },
+  })
+
+  return NextResponse.json({
+    data: entry,
+  })
+}
