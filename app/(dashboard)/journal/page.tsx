@@ -47,7 +47,7 @@ const JournalPage = () => {
     <div className="p-10 bg-zinc-400/10 overflow-y-scroll">
       <div className="flex flex-col">
         <Question askQuestion={askQuestion} loading={loadingQuestion} />
-        <div className="mb-10 flex justify-center items-center">
+        <div className="mb-10 flex justify-center items-center whitespace-pre">
           <ReactTyped strings={[answer]} typeSpeed={40} showCursor={false} />
         </div>
       </div>
