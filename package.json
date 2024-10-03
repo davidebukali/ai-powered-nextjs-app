@@ -15,7 +15,7 @@
     "@langchain/community": "^0.2.10",
     "@langchain/openai": "^0.0.34",
     "@neondatabase/serverless": "^0.9.4",
-    "@prisma/client": "^5.14.0",
+    "@prisma/client": "^5.19.1",
     "@react-three/fiber": "^8.16.8",
     "@sentry/nextjs": "^8.15.0",
     "@tensorflow/tfjs-node": "^4.20.0",
